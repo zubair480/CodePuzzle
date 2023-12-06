@@ -1,0 +1,32 @@
+import multiprocessing
+
+def multiply_problem_1(A, B, result_1):
+    result_1.value = A * B
+
+def multiply_problem_2(C, D, result_2):
+    result_2.value = C * D
+
+if name == 'main':
+    A = 12
+    B = 34
+    C = 56
+    D = 78
+    
+    result_1 = multiprocessing.Value('i', 0)
+    result_2 = multiprocessing.Value('i', 0)
+    
+    process_1 = multiprocessing.Process(target=multiply_problem_1, args=(A, B, result_1))
+    process_2 = multiprocessing.Process(target=multiply_problem_2, args=(C, D, result_2))
+    
+    process_1.start()
+    process_2.start()
+    
+    process_1.join()
+    process_2.join()
+    
+    result_problem_1 = result_1.value
+    result_problem_2 = result_2.value
+    
+    # Print results
+    print(f"Result of Problem 1: {result_problem_1}")
+    print(f"Result of Problem 2: {result_problem_2}")
